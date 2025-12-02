@@ -1,0 +1,183 @@
+{
+  // ===================================
+  // WAYBAR GLOBAL CONFIGURATION
+  // ===================================
+
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "height": 24,
+  "spacing": 2,
+  "gtk-layer-shell": true,
+
+  // ===================================
+  // MODULE LAYOUT
+  // ===================================
+
+  "modules-left": [
+    "hyprland/workspaces",
+    "custom/system-monitor"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "tray",
+    "network",
+    "bluetooth",
+    "battery",
+    "pulseaudio",
+    "custom/power"
+  ],
+
+  // ===================================
+  // LEFT MODULES
+  // ===================================
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "󰝥",
+      "2": "󰝥",
+      "3": "󰝥",
+      "4": "󰝥",
+      "5": "󰝥",
+      "active": "󰝦",
+      "default": "󰝥"
+    },
+    "persistent-workspaces": {
+      "*": [1, 2, 3, 4, 5]
+    },
+    "on-click": "activate",
+    "all-outputs": false,
+    "show-special": false,
+    "sort-by-number": true,
+    "disable-scroll": true,
+    "disable-scroll-wraparound": true
+  },
+
+  // ===================================
+  // CENTER MODULES
+  // ===================================
+
+  "clock": {
+    "format": "{:%a %d %b %I:%M %p}",
+    "format-alt": "{:%Y-%m-%d %H:%M:%S}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#cba6f7'><b>{}</b></span>",
+        "days": "<span color='#cdd6f4'><b>{}</b></span>",
+        "weeks": "<span color='#89dceb'><b>W{}</b></span>",
+        "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+        "today": "<span color='#f38ba8'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  // ===================================
+  // RIGHT MODULES
+  // ===================================
+
+
+  "network": {
+    "interval": 5,
+    "format-wifi": "{icon} {ifname}",
+    "format-ethernet": "{icon}",
+    "format-disconnected": "{icon} Disconnected",
+    "format-icons": {
+      "wifi": [
+        "󰤟",
+        "󰤢",
+        "󰤥",
+        "󰤨"
+      ],
+      "ethernet": "󰈀",
+      "disconnected": "󰤫"
+    },
+    "tooltip-format": "{essid} ({signalStrength}%)\n{ipaddr}\n{bandwidthUpBits} ↑ {bandwidthDownBits} ↓",
+    "on-click": "nm-applet"
+  },
+
+  "bluetooth": {
+    "format": "{icon}",
+    "format-on": "{icon}",
+    "format-off": "{icon}",
+    "format-disabled": "{icon}",
+    "format-connected": "{icon}",
+    "format-icons": {
+      "enabled": "󰂯",
+      "disabled": "󰂲",
+      "connected": "󰂱"
+    },
+    "tooltip": true,
+    "on-click": "blueman-manager"
+  },
+
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": "",
+    "format-icons": {
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+    "format-full": "󰂅",
+    "tooltip-format": "{capacity}%",
+    "interval": 5,
+    "on-click": "omarchy-menu power",
+    "states": {
+      "warning": 20,
+      "critical": 10
+    }
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "󰝟 {volume}%",
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󰋋",
+      "headset": "󰋋",
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
+    },
+    "scroll-step": 8,
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "smooth-scrolling-threshold": 1.0,
+    "tooltip-format": "{desc}\n{volume}%"
+  },
+
+  "tray": {
+    "spacing": 6
+  },
+
+  "custom/system-monitor": {
+    "exec": "/home/fraktal/.config/waybar/scripts/system-monitor.sh",
+    "interval": 2,
+    "format": "{}",
+    "tooltip-format": "System Monitor"
+  },
+
+  "custom/power": {
+    "format": "",
+    "interval": "once",
+    "on-click": "/home/fraktal/.config/waybar/scripts/power-menu.sh",
+    "tooltip-format": "Power Menu"
+  }
+}
